@@ -1,6 +1,7 @@
 from telegram import Update
 from telegram.ext import CallbackContext
-from setting import Setting
+from setting import Setting, BASE_DIR
+import os
 
 def tof_counter(update: Update, _: CallbackContext) -> None:
     """Echo the user message."""
@@ -9,13 +10,17 @@ def tof_counter(update: Update, _: CallbackContext) -> None:
 
     chat_id = update.message.chat['id']
 
-    with open('data.txt', 'r') as file:
-        data = []
-        for line in file:
-            col = line.split()
-            if col[0] == str(chat_id):
-                col[1] = str(int(col[1]) + num)
-            data.append(col)
+    data = []
+    try:
+        with open('data.txt', 'r') as file:
+            for line in file:
+                col = line.split()
+                if col[0] == str(chat_id):
+                    col[1] = str(int(col[1]) + num)
+                data.append(col)
+    except FileNotFoundError:
+        print("File not accessible")
+        
     
     flag = False
     for row in data:

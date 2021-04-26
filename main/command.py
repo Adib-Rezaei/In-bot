@@ -17,13 +17,17 @@ def help_command(update: Update, _: CallbackContext) -> None:
 def tof(update: Update, context: CallbackContext) -> None:
     chat_id = update.message.chat['id']
     num = 0
-    with open('data.txt', 'r') as file:
-        data = []
-        for line in file:
-            col = line.split()
-            if col[0] == str(chat_id):
-                num = col[1]
-                break
+
+    try:
+        with open('data.txt', 'r') as file:
+            for line in file:
+                col = line.split()
+                if col[0] == str(chat_id):
+                    num = col[1]
+                    break
+    except FileNotFoundError:
+        with open('data.txt', 'w') as file:
+            file.write(sr(chat_id) + ' ' + str(0))
 
     update.message.reply_text(f'{num} عدد تف در قبر امیر ارسال شد ')
 
