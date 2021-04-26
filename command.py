@@ -15,7 +15,17 @@ def help_command(update: Update, _: CallbackContext) -> None:
     update.message.reply_text('Help!')
 
 def tof(update: Update, context: CallbackContext) -> None:
-    update.message.reply_text(f'{Setting.cnt} عدد تف در قبر امیر ارسال شد ')
+    chat_id = update.message.chat['id']
+    num = 0
+    with open('data.txt', 'r') as file:
+        data = []
+        for line in file:
+            col = line.split()
+            if col[0] == str(chat_id):
+                num = col[1]
+                break
+
+    update.message.reply_text(f'{num} عدد تف در قبر امیر ارسال شد ')
 
 
 def echo(update: Update, _: CallbackContext) -> None:
