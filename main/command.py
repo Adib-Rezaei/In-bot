@@ -27,7 +27,7 @@ def tof(update: Update, context: CallbackContext) -> None:
                     break
     except FileNotFoundError:
         with open('data.txt', 'w') as file:
-            file.write(sr(chat_id) + ' ' + str(0))
+            file.write(str(chat_id) + ' ' + str(0))
 
     update.message.reply_text(f'{num} عدد تف در قبر امیر ارسال شد ')
 
