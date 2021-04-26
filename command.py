@@ -21,3 +21,6 @@ def tof(update: Update, context: CallbackContext) -> None:
 def echo(update: Update, _: CallbackContext) -> None:
     """Echo the user message."""
     update.message.reply_text(update.message.text)
+
+def unknown(update, context):
+    context.bot.send_message(chat_id=update.effective_chat.id, text="نفهمیدم چی گفتی, پس تف تو قبر امیر")

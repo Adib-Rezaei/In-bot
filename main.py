@@ -13,7 +13,7 @@ bot.
 import log
 from telegram import Update
 from telegram.ext import Updater, CommandHandler, MessageHandler, Filters, CallbackContext
-from command import start, help_command, tof, echo
+from command import start, help_command, tof, echo, unknown
 from message_processing import tof_counter
 from setting import TOKEN
 
@@ -33,6 +33,7 @@ def main() -> None:
     # on non command i.e message - echo the message on Telegram
     dispatcher.add_handler(MessageHandler(Filters.text & ~Filters.command, tof_counter))
     dispatcher.add_handler(CommandHandler('tof', tof))
+    dispatcher.add_handler(MessageHandler(Filters.command, unknown))
 
     # Start the Bot
     updater.start_polling()
